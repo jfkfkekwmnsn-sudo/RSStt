@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store';
 import { authApi } from '@/api';
 import { LoginRequest } from '@/types';
 import toast from 'react-hot-toast';
+import { getErrorMessage } from '@/utils/error';
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -46,8 +47,8 @@ export function useAuth() {
       
       toast.success('Добро пожаловать!');
       navigateRef.current('/');
-    } catch (error: any) {
-      const message = error.response?.data?.detail || 'Ошибка авторизации';
+    } catch (error) {
+      const message = getErrorMessage(error, 'Ошибка авторизации');
       toast.error(message);
       throw error;
     }

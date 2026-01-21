@@ -546,7 +546,7 @@ class TelegramHandler:
             return
         
         # Calculate schedule time
-        now = datetime.utcnow()
+        now = datetime.now()
         schedule_times = {
             "1h": now + timedelta(hours=1),
             "3h": now + timedelta(hours=3),

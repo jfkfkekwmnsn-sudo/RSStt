@@ -1,4 +1,4 @@
 # Telegram bot module
-from app.telegram.handler import router as telegram_router
+from app.telegram.handler import TelegramHandler
 
-__all__ = ["telegram_router"]
+__all__ = ["TelegramHandler"]

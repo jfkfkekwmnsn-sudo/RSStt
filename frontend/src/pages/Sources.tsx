@@ -130,7 +130,7 @@ export const Sources: React.FC = () => {
     {
       key: 'actions',
       title: '',
-      render: (_: any, record: SourceListItem) => (
+      render: (_: unknown, record: SourceListItem) => (
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"

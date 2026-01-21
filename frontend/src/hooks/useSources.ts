@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { sourcesApi } from '@/api';
 import { SourceCreate, SourceUpdate } from '@/types';
 import toast from 'react-hot-toast';
+import { getErrorMessage } from '@/utils/error';
 
 export function useSources(params?: { page?: number; per_page?: number; is_active?: boolean }) {
   return useQuery({
@@ -35,8 +36,9 @@ export function useCreateSource() {
       queryClient.invalidateQueries({ queryKey: ['sources'] });
       toast.success('Источник создан');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при создании');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при создании');
+      toast.error(message);
     },
   });
 }
@@ -52,8 +54,9 @@ export function useUpdateSource() {
       queryClient.invalidateQueries({ queryKey: ['sources', id] });
       toast.success('Источник обновлен');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при обновлении');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при обновлении');
+      toast.error(message);
     },
   });
 }
@@ -67,8 +70,9 @@ export function useDeleteSource() {
       queryClient.invalidateQueries({ queryKey: ['sources'] });
       toast.success('Источник удален');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при удалении');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при удалении');
+      toast.error(message);
     },
   });
 }
@@ -82,8 +86,9 @@ export function useFetchSource() {
       queryClient.invalidateQueries({ queryKey: ['sources', id] });
       toast.success('Запущен сбор материалов');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при запуске');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при запуске');
+      toast.error(message);
     },
   });
 }

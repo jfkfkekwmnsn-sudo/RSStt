@@ -79,7 +79,7 @@ class AuditLog(Base):
     after_state: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
     
     # Additional context
-    metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+    metadata_info: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
     ip_address: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     user_agent: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     

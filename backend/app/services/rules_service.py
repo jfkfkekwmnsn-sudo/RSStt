@@ -38,7 +38,7 @@ class RulesService:
                 
                 # Update rule stats
                 rule.times_matched += 1
-                rule.last_matched_at = datetime.utcnow()
+                rule.last_matched_at = datetime.now()
                 
                 logger.info(
                     "Rule matched",
@@ -192,12 +192,12 @@ class RulesService:
         """Apply single action"""
         if action.action == ActionType.AUTO_APPROVE:
             article.status = ArticleStatus.APPROVED
-            article.moderated_at = datetime.utcnow()
+            article.moderated_at = datetime.now()
             return {"action": "auto_approve", "stops_processing": True}
         
         elif action.action == ActionType.AUTO_REJECT:
             article.status = ArticleStatus.REJECTED
-            article.moderated_at = datetime.utcnow()
+            article.moderated_at = datetime.now()
             article.rejection_reason = f"Auto-rejected by rule"
             return {"action": "auto_reject", "stops_processing": True}
         

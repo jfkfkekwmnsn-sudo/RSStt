@@ -133,7 +133,7 @@ class AuditService:
     ) -> List[AuditLog]:
         """Get user activity log"""
         if not date_from:
-            date_from = datetime.utcnow() - timedelta(days=7)
+            date_from = datetime.now() - timedelta(days=7)
         
         query = select(AuditLog).where(
             and_(

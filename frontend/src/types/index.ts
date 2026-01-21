@@ -54,12 +54,12 @@ export interface AnalyticsSummary {
 export interface RuleCondition {
   field: string;
   operator: string;
-  value: any;
+  value: unknown;
 }
 
 export interface RuleAction {
   action: string;
-  value?: any;
+  value?: unknown;
 }
 
 export interface Rule {
@@ -103,7 +103,7 @@ export interface PublishTarget {
   name: string;
   telegram_chat_id?: number;
   telegram_chat_username?: string;
-  settings?: Record<string, any>;
+  settings?: Record<string, unknown>;
   is_active: boolean;
   total_published: number;
   last_published_at?: string;

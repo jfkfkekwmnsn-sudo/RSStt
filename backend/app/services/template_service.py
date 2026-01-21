@@ -249,7 +249,7 @@ class TemplateService:
             tags=["тест", "пример"],
             url="https://example.com/news/123",
             main_image_url="https://example.com/image.jpg",
-            pub_date=datetime.utcnow()
+            pub_date=datetime.now()
         )
         
         template = await self._get_template(template_id)

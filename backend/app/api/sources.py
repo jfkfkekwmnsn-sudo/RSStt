@@ -6,7 +6,7 @@ from uuid import UUID
 from app.api.deps import get_db, get_current_user, require_admin, require_analyst
 from app.models.user import User
 from app.schemas.source import (
-    SourceCreate, SourceUpdate, SourceResponse, SourceListResponse,
+    SourceCreate, SourceUpdate, SourceResponse, SourceListItem,
     SourceRunResponse, FetchNowResponse
 )
 from app.schemas.common import PaginatedResponse, MessageResponse
@@ -15,7 +15,7 @@ from app.services.source_service import SourceService
 router = APIRouter()
 
 
-@router.get("", response_model=PaginatedResponse[SourceListResponse])
+@router.get("", response_model=PaginatedResponse[SourceListItem])
 async def list_sources(
     page: int = Query(1, ge=1),
     per_page: int = Query(20, ge=1, le=100),

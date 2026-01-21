@@ -54,7 +54,7 @@ export interface Article {
   status: ArticleStatus;
   batch_id?: string;
   ai_used: boolean;
-  ai_metadata?: Record<string, any>;
+  ai_metadata?: Record<string, unknown>;
   moderated_at?: string;
   moderator_id?: string;
   moderator_name?: string;

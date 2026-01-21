@@ -54,12 +54,12 @@ class PublishingService:
             
             if result["success"]:
                 job.status = PublishJobStatus.PUBLISHED
-                job.published_at = datetime.utcnow()
+                job.published_at = datetime.now()
                 job.external_post_id = result.get("post_id")
                 job.published_content = result.get("content")
                 
                 article.status = ArticleStatus.PUBLISHED
-                article.published_at = datetime.utcnow()
+                article.published_at = datetime.now()
                 article.published_target_id = target.id
                 article.published_external_id = result.get("post_id")
                 article.published_snapshot = result.get("content")
@@ -108,7 +108,7 @@ class PublishingService:
                 "content": {
                     "text": content["text"],
                     "message_id": message.message_id,
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": datetime.now().isoformat()
                 }
             }
             
@@ -131,7 +131,7 @@ class PublishingService:
                 "title": article.title,
                 "content": article.content_clean,
                 "url": article.url,
-                "published_at": datetime.utcnow().isoformat()
+                "published_at": datetime.now().isoformat()
             }
             
             async with aiohttp.ClientSession() as session:

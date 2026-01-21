@@ -42,5 +42,5 @@ async def health_check(
         version=settings.APP_VERSION,
         database=db_ok,
         redis=redis_ok,
-        timestamp=datetime.utcnow()
+        timestamp=datetime.now()
     )

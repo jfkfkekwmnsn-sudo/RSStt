@@ -3,10 +3,17 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
+# Accept API URL as build argument
+ARG VITE_API_URL=/api/v1
+
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+# Set environment variable for Vite build
+ENV VITE_API_URL=${VITE_API_URL}
+
 RUN npm run build
 
 # Production stage

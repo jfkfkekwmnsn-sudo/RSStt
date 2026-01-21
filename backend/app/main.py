@@ -63,3 +63,8 @@ async def root():
         "version": settings.APP_VERSION,
         "status": "running"
     }
+
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}

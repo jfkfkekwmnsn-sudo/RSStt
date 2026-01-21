@@ -58,7 +58,7 @@ class ModerationService:
         else:
             article.status = ArticleStatus.APPROVED
         
-        article.moderated_at = datetime.utcnow()
+        article.moderated_at = datetime.now()
         article.moderator_id = user_id
         
         # Get default target if not specified
@@ -143,7 +143,7 @@ class ModerationService:
         before_state = {"status": article.status.value}
         
         article.status = ArticleStatus.REJECTED
-        article.moderated_at = datetime.utcnow()
+        article.moderated_at = datetime.now()
         article.moderator_id = user_id
         article.rejection_reason = reason
         
@@ -186,7 +186,7 @@ class ModerationService:
         target_id: Optional[UUID] = None
     ) -> Dict[str, Any]:
         """Schedule article for future publishing"""
-        if scheduled_at <= datetime.utcnow():
+        if scheduled_at <= datetime.now():
             return {"success": False, "message": "Scheduled time must be in the future"}
         
         return await self.approve_article(

@@ -48,13 +48,13 @@ export const Queue: React.FC = () => {
     setConfirmAction(null);
   };
 
-  const handleFiltersChange = (newFilters: any) => {
+  const handleFiltersChange = (newFilters: Partial<{ priority?: string; category?: string }>) => {
     const params = new URLSearchParams();
     if (newFilters.priority) params.set('priority', newFilters.priority);
     if (newFilters.category) params.set('category', newFilters.category);
     setSearchParams(params);
     setPage(1);
-  };
+  }; 
 
   return (
     <div className="space-y-6">

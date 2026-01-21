@@ -56,7 +56,7 @@ def fetch_all_sources():
     async def _fetch_all():
         async with async_session_maker() as db:
             # Get sources that need fetching
-            now = datetime.utcnow()
+            now = datetime.now()
             
             query = select(Source).where(
                 Source.is_active == True
@@ -180,7 +180,7 @@ def execute_scheduled_jobs():
     """Execute publish jobs that are scheduled for now"""
     async def _execute_scheduled():
         async with async_session_maker() as db:
-            now = datetime.utcnow()
+            now = datetime.now()
             
             # Get due jobs
             query = select(PublishJob).where(
@@ -229,7 +229,7 @@ def housekeeping():
     async def _housekeeping():
         async with async_session_maker() as db:
             # Archive old rejected articles (older than 30 days)
-            cutoff = datetime.utcnow() - timedelta(days=30)
+            cutoff = datetime.now() - timedelta(days=30)
             
             query = select(Article).where(
                 and_(
@@ -245,7 +245,7 @@ def housekeeping():
             
             # Clean up old source runs (older than 7 days)
             from app.models.source import SourceRun
-            run_cutoff = datetime.utcnow() - timedelta(days=7)
+            run_cutoff = datetime.now() - timedelta(days=7)
             
             delete_runs = await db.execute(
                 select(func.count(SourceRun.id)).where(

@@ -10,7 +10,8 @@ import {
   useRejectArticle,
   useUpdateArticle,
   useAIRewrite,
-  useArticlePreview
+  useArticlePreview,
+  useRestoreVersion,
 } from '@/hooks';
 import { ArticleUpdate } from '@/types';
 
@@ -31,6 +32,7 @@ export const ArticlePage: React.FC = () => {
   const rejectArticle = useRejectArticle();
   const updateArticle = useUpdateArticle();
   const aiRewrite = useAIRewrite();
+  const restoreVersion = useRestoreVersion();
 
   if (isLoading) {
     return (
@@ -69,8 +71,11 @@ export const ArticlePage: React.FC = () => {
   };
 
   const handleRestoreVersion = async (versionId: string) => {
-    // TODO: Implement version restore
-    console.log('Restore version:', versionId);
+    try {
+      await restoreVersion.mutateAsync({ articleId: article.id, versionId });
+    } catch (err) {
+      // error handled in hook
+    }
   };
 
   return (

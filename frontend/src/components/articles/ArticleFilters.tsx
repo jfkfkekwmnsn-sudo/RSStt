@@ -1,20 +1,14 @@
 import React from 'react';
 import { Search, Filter, X } from 'lucide-react';
 import { Input, Select, Button } from '@/components/ui';
-import { ArticleStatus } from '@/types';
+import type { ArticleFilters as ArticleFiltersType, ArticleStatus } from '@/types';
 
 interface ArticleFiltersProps {
-  filters: {
-    search?: string;
-    status?: ArticleStatus[];
-    category?: string;
-    source_id?: string;
-    has_image?: boolean;
-  };
-  onFiltersChange: (filters: any) => void;
+  filters: ArticleFiltersType;
+  onFiltersChange: (filters: Partial<ArticleFiltersType>) => void;
   categories?: string[];
   sources?: { id: string; name: string }[];
-}
+} 
 
 const statusOptions = [
   { value: '', label: 'Все статусы' },

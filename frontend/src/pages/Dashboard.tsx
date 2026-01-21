@@ -13,13 +13,24 @@ import {
 } from 'recharts';
 
 export const Dashboard: React.FC = () => {
-  const { data: analytics, isLoading: analyticsLoading } = useAnalyticsSummary();
+  const { data: analytics, isLoading: analyticsLoading, error: analyticsError } = useAnalyticsSummary();
   const { data: queue, isLoading: queueLoading } = useArticleQueue({ per_page: 5 });
 
   if (analyticsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <Spinner size="lg" />
+      </div>
+    );
+  }
+
+  if (analyticsError) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <p className="text-red-600 font-medium mb-2">Ошибка загрузки аналитики</p>
+          <p className="text-gray-600 text-sm">Проверьте соединение с сервером</p>
+        </div>
       </div>
     );
   }
@@ -205,14 +216,14 @@ export const Dashboard: React.FC = () => {
 const StatCardContent: React.FC<{
   title: string;
   value: number | string;
-  icon: any;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
 }> = ({ title, value, icon: Icon, color }) => (
   <>
     <div className={`inline-flex p-2 rounded-lg ${color} mb-2`}>
       <Icon className="w-5 h-5" />
     </div>
-    <p className="text-2xl font-bold text-gray-900">{formatNumber(value as number)}</p>
+    <p className="text-2xl font-bold text-gray-900">{formatNumber(Number(value) || 0)}</p>
     <p className="text-xs text-gray-500">{title}</p>
   </>
 );

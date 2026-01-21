@@ -5,7 +5,7 @@ export interface Column<T> {
   key: string;
   title: string;
   width?: string;
-  render?: (value: any, record: T, index: number) => React.ReactNode;
+  render?: (value: unknown, record: T, index: number) => React.ReactNode;
 }
 
 export interface TableProps<T> {
@@ -73,13 +73,15 @@ export function Table<T>({
                   onRowClick && 'cursor-pointer hover:bg-gray-50'
                 )}
               >
-                {columns.map((column) => (
-                  <td key={column.key} className="px-4 py-3 text-sm text-gray-900">
-                    {column.render
-                      ? column.render((record as any)[column.key], record, index)
-                      : (record as any)[column.key]}
-                  </td>
-                ))}
+                {columns.map((column) => {
+                  const key = column.key as keyof T;
+                  const value = record[key] as unknown;
+                  return (
+                    <td key={String(column.key)} className="px-4 py-3 text-sm text-gray-900">
+                      {column.render ? column.render(value, record, index) : String(value ?? '')}
+                    </td>
+                  );
+                })}
               </tr>
             ))
           )}

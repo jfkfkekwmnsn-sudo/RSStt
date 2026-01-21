@@ -90,14 +90,6 @@ class AIService:
         except Exception as e:
             logger.error("AI rewrite error", error=str(e))
             return None
-            )
-            
-            return response.choices[0].message.content
-            
-        except Exception as e:
-            logger.error("AI API call failed", error=str(e))
-            return None
-    
     async def summarize_article(self, article_id: UUID) -> dict:
         """Generate a summary of an article"""
         query = select(Article).where(Article.id == article_id)

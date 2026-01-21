@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { articlesApi } from '@/api';
 import { ArticleFilters, ArticleUpdate, ArticleApproveRequest } from '@/types';
 import toast from 'react-hot-toast';
+import { getErrorMessage } from '@/utils/error';
 
 export function useArticles(filters: ArticleFilters & { page?: number; per_page?: number } = {}) {
   return useQuery({
@@ -43,8 +44,9 @@ export function useApproveArticle() {
       queryClient.invalidateQueries({ queryKey: ['articles'] });
       toast.success('Статья одобрена');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при одобрении');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при одобрении');
+      toast.error(message);
     },
   });
 }
@@ -59,8 +61,9 @@ export function useRejectArticle() {
       queryClient.invalidateQueries({ queryKey: ['articles'] });
       toast.success('Статья отклонена');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при отклонении');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при отклонении');
+      toast.error(message);
     },
   });
 }
@@ -75,8 +78,9 @@ export function useUpdateArticle() {
       queryClient.invalidateQueries({ queryKey: ['articles', id] });
       toast.success('Статья обновлена');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка при обновлении');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при обновлении');
+      toast.error(message);
     },
   });
 }
@@ -90,8 +94,25 @@ export function useAIRewrite() {
       queryClient.invalidateQueries({ queryKey: ['articles', id] });
       toast.success('AI рерайт применен');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Ошибка AI');
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка AI');
+      toast.error(message);
+    },
+  });
+}
+
+export function useRestoreVersion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ articleId, versionId }: { articleId: string; versionId: string }) =>
+      articlesApi.restoreVersion(articleId, versionId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+      toast.success('Версия восстановлена');
+    },
+    onError: (error) => {
+      const message = getErrorMessage(error, 'Ошибка при восстановлении');
+      toast.error(message);
     },
   });
 }

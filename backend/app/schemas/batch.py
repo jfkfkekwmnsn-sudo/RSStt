@@ -31,7 +31,7 @@ class BatchResponse(BaseModel):
 
 
 class BatchDetailResponse(BatchResponse):
-    articles: List["ArticleListResponse"] = []
+    articles: List = []
 
 
 class BatchActionResponse(BaseModel):
