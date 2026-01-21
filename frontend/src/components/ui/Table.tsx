@@ -75,7 +75,7 @@ export function Table<T>({
               >
                 {columns.map((column) => {
                   const key = column.key as keyof T;
-                  const value = record[key] as unknown;
+                  const value = record[key] as any;
                   return (
                     <td key={String(column.key)} className="px-4 py-3 text-sm text-gray-900">
                       {column.render ? column.render(value, record, index) : String(value ?? '')}

@@ -23,7 +23,7 @@ export const Articles: React.FC = () => {
     ...filters,
   });
 
-  const handleFiltersChange = (newFilters: Partial<ArticleFilters & { page?: number; per_page?: number }>) => {
+  const handleFiltersChange = (newFilters: Partial<ArticleFiltersType & { page?: number; per_page?: number }>) => {
     const params = new URLSearchParams();
     if (newFilters.status?.[0]) params.set('status', newFilters.status[0]);
     if (newFilters.category) params.set('category', newFilters.category);
