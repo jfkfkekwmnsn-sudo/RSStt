@@ -5,7 +5,7 @@ from app.api import (
     sources, targets, templates, users, webhooks
 )
 
-api_router = APIRouter(prefix="/api/v1")
+api_router = APIRouter()
 
 # Include routers
 api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
