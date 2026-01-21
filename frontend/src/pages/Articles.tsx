@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ArticleList, ArticleFilters } from '@/components/articles';
+import type { ArticleFilters as ArticleFiltersType } from '@/types';
 import { useArticles } from '@/hooks';
 import { ArticleStatus } from '@/types';
 

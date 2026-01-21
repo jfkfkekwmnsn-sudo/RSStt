@@ -5,7 +5,7 @@ export interface Column<T> {
   key: string;
   title: string;
   width?: string;
-  render?: (value: unknown, record: T, index: number) => React.ReactNode;
+  render?: (value: any, record: T, index?: number) => React.ReactNode;
 }
 
 export interface TableProps<T> {
